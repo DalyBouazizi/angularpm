@@ -1,0 +1,42 @@
+<div class="mt-4">
+    <h3 class="text-lg font-semibold mb-2 text-gray-700">Tâches :</h3>
+    
+     <!-- ✅ AJOUT : Condition @if pour vérifier si tasks est vide -->
+    @if (tasks.length === 0) {
+      <p class="text-gray-500 italic">Aucune tâche</p>
+    } @else {
+      @for (task of tasks; track task.title) {
+        <div 
+        [appHighlightStatus]="task.status"
+          class="p-3 rounded-lg bg-white mb-2"
+          [ngClass]="{
+            'border-l-4 border-green-500 ': task.status === 'Terminé',
+            'border-l-4 border-blue-500 ': task.status === 'En cours',
+            'border-l-4 border-yellow-500 ': task.status === 'En attente'
+          }"
+          [ngStyle]="{
+            'opacity': task.status === 'Terminé' ? '0.6' : '1',
+            'border-width': '4px'
+          }"
+        >
+        <!-- | priorityColor  this goes into ngclass-->
+          <h4 class="font-semibold text-gray-800"
+          
+           [ngClass]="task.priority "
+          >{{ task.title }}</h4>
+          <p class="text-sm text-gray-600">Priorité : {{ task.priority }}</p>
+          <p class="text-sm text-gray-600">
+            {{ task.status | statusEmoji }} {{ task.status }}
+          </p>
+        </div>
+
+        <button 
+        (click)="changeStatus(task)"
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 my-2 rounded">
+        Changer statut
+      </button>
+
+
+      }
+    }
+  </div>

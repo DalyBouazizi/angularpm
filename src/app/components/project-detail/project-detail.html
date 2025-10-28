@@ -1,0 +1,51 @@
+<div class="bg-white shadow-xl rounded-2xl p-6 mt-8 max-w-4xl mx-auto">
+    <h2 class="text-2xl font-bold text-gray-800 mb-4">{{ project.name }}</h2>
+    
+    <div class="space-y-2 mb-4">
+      <p class="text-gray-600">
+        <strong>Description :</strong> {{ project.description }}
+      </p>
+      <p class="text-gray-600">
+        <strong>Date de début :</strong> 
+        {{ project.dateDeb | friendlyDate }}
+        <span class="text-sm text-gray-400">
+          ({{ project.dateDeb | date:'dd/MM/yyyy' }})
+        </span>
+      </p>
+      <p class="text-gray-600">
+        <strong>Date de fin :</strong> {{ project.dateFin | date:'dd/MM/yyyy' }}
+      </p>
+      
+      <p class="text-gray-600 flex items-center gap-2">
+        <strong>Statut :</strong> 
+        <app-status-badge [status]="project.status"></app-status-badge>
+      </p>
+
+    </div>
+  
+ <!-- ✅ AJOUT : Barre de progression -->
+ <div class="mb-6">
+    <div class="flex justify-between items-center mb-2">
+      <span class="text-sm font-semibold text-gray-700">Progression des tâches</span>
+      <span class="text-sm font-semibold text-blue-600">
+        {{ getProgress() | number:'1.0-0' }}%
+      </span>
+    </div>
+    <div class="w-full bg-gray-200 rounded-full h-4 overflow-hidden">
+      <div 
+        class="bg-blue-600 h-4 rounded-full transition-all duration-500 ease-out"
+        [style.width.%]="getProgress()"
+      ></div>
+    </div>
+    <p class="text-xs text-gray-500 mt-1">
+        {{ getCompletedTasksCount() }}  / {{ project.tasks.length }} tâches terminées
+    </p>
+  </div>
+
+
+    
+    <app-task-list 
+    [tasks]="project.tasks"
+    (statusChanged)="onStatusChanged($event)">
+  </app-task-list>
+  </div>
