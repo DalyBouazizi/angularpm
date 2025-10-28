@@ -27,10 +27,19 @@ export class ProjectDetail {
     return this.project.tasks.filter((t: any) => t.status === 'Terminé').length;
   }
 
-  // ✅ ADD THIS METHOD to handle the @Output event from TaskList
-  onStatusChanged(task: any) {
-    console.log('Statut de la tâche changé:', task);
+ // ✅ NEW: Auto-update project status based on tasks
+ onStatusChanged(task: any) {
+  console.log('Statut de la tâche changé:', task);
+  
+  // Update project status automatically
+  const progress = this.getProgress();
+  
+  if (progress === 100) {
+    this.project.status = 'Terminé';
+  } else {
+    this.project.status = 'En cours';
   
   }
+}
 
 }

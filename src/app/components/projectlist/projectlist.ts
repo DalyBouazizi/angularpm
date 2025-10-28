@@ -4,12 +4,14 @@ import {TaskList} from '../task-list/task-list';
 import { FormsModule } from '@angular/forms';  // ✅ Add this line
 import { HighlightStatusDirective } from '../../highlight-status.js'; // ✅ AJOUT
 import { ProjectDetail } from '../project-detail/project-detail.js'; // ✅ AJOUT
+import { Dashboard } from '../dashboard/dashboard.js'; // ✅ ADD THIS
+
 
 
 @Component({
   selector: 'app-projectlist',
   standalone: true,
-  imports: [CommonModule,TaskList,FormsModule,HighlightStatusDirective,ProjectDetail],
+  imports: [CommonModule,TaskList,FormsModule,HighlightStatusDirective,ProjectDetail,Dashboard],
   templateUrl: './projectlist.html',
   styleUrl: './projectlist.css'
 })
